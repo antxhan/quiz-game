@@ -1,3 +1,5 @@
+import { api } from "../../utils/api";
+
 function html(data = null) {
   return `<div>${data ? "Home" : "Loading"}</div>`;
 }
@@ -5,14 +7,10 @@ function html(data = null) {
 function eventListeners() {}
 
 export async function Page() {
-  // mock async await
-  const response = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve("responose");
-    }, 2000);
-  });
-  const data = await response;
-  return { html: html(data), addEventListeners: eventListeners };
+  const categories = [];
+  //   const categories = await api.categories();
+  //   console.log(categories);
+  return { html: html({ categories }), addEventListeners: eventListeners };
 }
 
 export function Loading() {

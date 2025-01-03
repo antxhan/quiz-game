@@ -14,3 +14,29 @@
   margin: 0;
   padding: 0;
 }
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  & > * {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+main {
+  flex-grow: 1;
+}
+
+footer {
+  padding-block: 1rem;
+  text-align: center;
+}
+
+.wrapper {
+  width: min(100%, 1000px);
+}
