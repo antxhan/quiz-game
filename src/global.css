@@ -1,9 +1,16 @@
 :root {
+  /* COLORS */
+  --clr-neutral-000: #ffffff;
+  --clr-neutral-800: #1e1e1e;
+
   /* FONT FAMILIES */
   --ff-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
   /* FONT SIZES */
+  --fs-xlarge: 2rem;
+  --fs-large: 1.5rem;
+  --fs-medium: 1.25rem;
   --fs-normal: 1rem;
 }
 
@@ -16,8 +23,11 @@
 }
 
 body {
+  background-color: var(--clr-neutral-800);
+  color: var(--clr-neutral-000);
   display: flex;
   flex-direction: column;
+  font-family: var(--ff-sans);
   align-items: center;
   min-height: 100vh;
   & > * {
@@ -25,7 +35,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-inline: 2rem;
   }
+}
+
+header {
+  padding-block: 2rem;
 }
 
 main {
@@ -33,10 +48,39 @@ main {
 }
 
 footer {
-  padding-block: 1rem;
+  padding-block: 2rem;
   text-align: center;
+}
+
+.logo {
+  font-size: var(--fs-xlarge);
 }
 
 .wrapper {
   width: min(100%, 1000px);
+}
+
+button {
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: var(--fs-normal);
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--clr-neutral-000);
+  background: var(--clr-neutral-800);
+  color: var(--clr-neutral-000);
+}
+
+img {
+  max-width: 100%;
+  display: flex;
+}
+
+/* MEDIA QUERIES ------------------------------------------------------ */
+
+@media (max-width: 700px) {
+  body {
+    & > * {
+      /* padding-inline: 1rem; */
+    }
+  }
 }
