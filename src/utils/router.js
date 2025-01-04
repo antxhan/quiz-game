@@ -5,7 +5,7 @@ function router() {
 }
 
 function loadPage(page) {
-  const app = document.querySelector("#app");
+  const app = document.querySelector("body");
   import(`../pages/${page}`)
     .then(async (module) => {
       if (module.Loading) app.innerHTML = module.Loading();

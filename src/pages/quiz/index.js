@@ -41,23 +41,31 @@ function Answer(index, answer) {
 function html(quiz = null) {
   const questions = quiz ? quiz.results : [];
   return `
-  <div class="progress-bar-container">
-    <button class="close-button">
-        <img src="${xIcon}" alt="Close" />
-    </button>
-    ${ProgressBar(10)}
-    ${Score()}
+  <div class="wrapper">
+    <header>
+        <div class="wrapper">
+            <button class="close-button">
+                <img src="${xIcon}" alt="Close" />
+            </button>
+            ${ProgressBar(10)}
+            ${Score()}
+        </div>
+    </header>
+    <main>
+        <div class="wrapper">
+            ${questions
+              .splice(0, 1) // remove this
+              .map((question) => Question(question))
+              .join("")}
+        </div>
+    </main>
   </div>
-  <div class="questions-container">
-    ${questions
-      .splice(0, 1) // remove this
-      .map((question) => Question(question))
-      .join("")}
-  </div>
-  <div class="quiz-footer">
+  <footer>
+    <div class="wrapper">
         <button class="skip-button">Skip</button>
         <button class="continue-button">Continue</button>
-  </div>
+    </div>
+  </footer>
   `;
 }
 
