@@ -33,8 +33,8 @@ export function handleContinue() {
       }
     } else if (quiz.current_question === quiz.results.length) {
       view.innerHTML = ResultsView(quiz);
-      console.log("thats here");
       continueButton.textContent = "New Quiz";
+      document.querySelector(".skip-button").textContent = "Home";
     } else {
       window.location.href = "/new-quiz";
     }
