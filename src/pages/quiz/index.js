@@ -1,29 +1,18 @@
 import "./index.css";
 import { api } from "../../utils/api";
-import { shuffle } from "../../utils/utils";
-import xIcon from "../../assets/icons/x.svg";
-import { Question } from "./components/Question";
-import { ProgressBar } from "./components/ProgressBar";
-import { Score } from "./components/Score";
 import { db } from "../../utils/db";
+import { QuizView } from "./views/Quiz";
+import { ResultsView } from "./views/Results";
 
 function html(quiz = null) {
   const questions = quiz ? quiz.results : [];
-  const currentQuestionIndex = quiz ? quiz.current_question : 0;
   return `
   <div class="wrapper">
-    <header>
-        <div class="wrapper">
-            <button class="close-button">
-                <img src="${xIcon}" alt="Close" />
-            </button>
-            ${ProgressBar(10)}
-            ${Score()}
-        </div>
-    </header>
-    <main>
-    ${quiz ? Question(questions[currentQuestionIndex]) : ""}  
-    </main>
+  ${
+    quiz && quiz.current_question < questions.length
+      ? QuizView(quiz)
+      : ResultsView(quiz)
+  }
   </div>
   <footer>
     <div class="wrapper">
