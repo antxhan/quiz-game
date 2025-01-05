@@ -1,56 +1,47 @@
 import "./index.css";
-import { api } from "../../utils/api";
 import { db } from "../../utils/db";
-import { QuizView } from "./views/Quiz";
+import { handleClose, QuizView } from "./views/Quiz";
 import { ResultsView } from "./views/Results";
+import { ContinueButton, handleContinue } from "./components/ContinueButton";
+import { handleSkip, SkipButton } from "./components/SkipButton";
 
-function html(quiz = null) {
-  const questions = quiz ? quiz.results : [];
+function html(quiz) {
+  const questions = quiz.results;
+  const currentQuestion = questions[quiz.current_question];
+  const progress = (quiz.current_question / questions.length) * 100;
   return `
   <div class="wrapper">
   ${
-    quiz && quiz.current_question < questions.length
-      ? QuizView(quiz)
+    quiz.current_question < questions.length
+      ? QuizView(currentQuestion, progress)
       : ResultsView(quiz)
   }
   </div>
   <footer>
     <div class="wrapper">
-        <button class="skip-button">Skip</button>
-        <button class="continue-button">Continue</button>
+        ${SkipButton(quiz.current_question, questions.length)}
+        ${ContinueButton(quiz.current_question, questions.length)}
     </div>
   </footer>
   `;
 }
 
-function handleContinue() {
-  const continueButton = document.querySelector(".continue-button");
-  continueButton.addEventListener("click", () => {
-    const quiz = db.getQuiz();
-    if (quiz.current_question >= quiz.results.length - 1) {
-      // game is over
-      // show score
-      // show results
-      // new quiz button
-      // go home button
-    }
-    quiz.current_question++;
-    db.setQuiz(quiz);
-    window.location.href = "/quiz";
-  });
-}
-
 export async function Page() {
   const quiz = db.getQuiz();
-  if (!quiz) window.location.href = "/";
+  if (!quiz || quiz.current_question === quiz.results.length)
+    window.location.href = "/";
   return {
     html: html(quiz),
     addEventListeners: () => {
-      handleContinue();
+      handleClose();
+      handleContinue(quiz);
+      handleSkip(quiz);
     },
   };
 }
 
 export function Loading() {
-  return html();
+  return `
+  LOADING SCREEN 
+  `;
 }
