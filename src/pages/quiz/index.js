@@ -4,16 +4,22 @@ import { handleClose, QuizView } from "./views/Quiz";
 import { ResultsView } from "./views/Results";
 import { ContinueButton, handleContinue } from "./components/ContinueButton";
 import { handleSkip, SkipButton } from "./components/SkipButton";
+import {
+  enableContinueButton,
+  listenToAnswers,
+  setAnswerButtonsClass,
+} from "./components/Answer";
 
 function html(quiz) {
   const questions = quiz.results;
   const currentQuestion = questions[quiz.current_question];
   const progress = (quiz.current_question / questions.length) * 100;
+  const score = quiz.score;
   return `
   <div class="wrapper" id="quiz">
   ${
     quiz.current_question < questions.length
-      ? QuizView(currentQuestion, progress)
+      ? QuizView(currentQuestion, progress, score, questions.length)
       : ResultsView(quiz)
   }
   </div>
@@ -31,6 +37,10 @@ export async function Page() {
   if (!quiz || quiz.current_question === quiz.results.length)
     window.location.href = "/";
 
+  const isAnswered =
+    quiz.answers.correct.includes(quiz.current_question) ||
+    quiz.answers.incorrect.includes(quiz.current_question);
+
   const isGameOver = quiz.current_question >= quiz.results.length;
   return {
     html: html(quiz),
@@ -38,6 +48,13 @@ export async function Page() {
       (!isGameOver && handleClose()) || null;
       handleContinue();
       handleSkip(quiz);
+      if (isAnswered) {
+        setAnswerButtonsClass(
+          quiz.results[quiz.current_question].correct_answer
+        );
+      }
+      (!isAnswered && listenToAnswers()) || null;
+      (isAnswered && enableContinueButton()) || null;
     },
   };
 }

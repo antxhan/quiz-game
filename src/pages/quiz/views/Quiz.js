@@ -3,7 +3,7 @@ import { Question } from "../components/Question";
 import { Score } from "../components/Score";
 import xIcon from "../../../assets/icons/x.svg";
 
-export function QuizView(question, progress) {
+export function QuizView(question, progress, score, questionsLength) {
   return `
   <header>
     <div class="wrapper">
@@ -11,7 +11,7 @@ export function QuizView(question, progress) {
           <img src="${xIcon}" alt="Close" />
       </button>
       ${ProgressBar(progress)}
-      ${Score()}
+      ${Score(questionsLength, score)}
     </div>
   </header>
   <main>

@@ -54,6 +54,13 @@ header {
   }
 }
 
+.score {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 /* MAIN ------------------------------------------------------ */
 
 main {
@@ -88,6 +95,16 @@ main {
     align-items: center;
     justify-content: center;
   }
+  &.correct {
+    background-color: green;
+  }
+  &.incorrect {
+    background-color: red;
+  }
+}
+
+button[disabled] {
+  opacity: 0.5;
 }
 
 /* FOOTER ------------------------------------------------------ */
