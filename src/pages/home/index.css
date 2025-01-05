@@ -1,0 +1,34 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* border: 1px solid red; */
+  & > * {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    /* border: 1px solid green; */
+  }
+  & > * > .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    /* border: 1px solid var(--clr-neutral-000); */
+  }
+}
+
+header {
+  padding-block: 2rem;
+}
+
+main {
+  flex-grow: 1;
+}
+
+footer {
+  padding-block: 2rem;
+}

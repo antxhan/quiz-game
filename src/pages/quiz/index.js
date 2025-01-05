@@ -2,44 +2,14 @@ import "./index.css";
 import { api } from "../../utils/api";
 import { shuffle } from "../../utils/utils";
 import xIcon from "../../assets/icons/x.svg";
-
-function ProgressBar(progress = 0) {
-  return `
-  <div class="progress-bar">
-    <div class="progress-bar__progress" style="width: ${progress}%"></div>
-  </div>
-  `;
-}
-
-function Score(amount, correct, incorrect) {
-  return `
-    <div>Score</div>
-    `;
-}
-
-function Question({ question, correct_answer, incorrect_answers }) {
-  const answers = shuffle([correct_answer, ...incorrect_answers]);
-  return `
-  <div class="question-container">
-    <p>${question}</p>
-    <div class="answers-container">
-      ${answers.map((answer, index) => Answer(index, answer)).join("")}
-    </div>
-  </div>
-  `;
-}
-
-function Answer(index, answer) {
-  return `
-    <button class="answer-button">
-        <span>${index + 1}.</span>
-        <span>${answer}</span>
-    </button>
-    `;
-}
+import { Question } from "./components/Question";
+import { ProgressBar } from "./components/ProgressBar";
+import { Score } from "./components/Score";
+import { db } from "../../utils/db";
 
 function html(quiz = null) {
   const questions = quiz ? quiz.results : [];
+  const currentQuestionIndex = quiz ? quiz.current_question : 0;
   return `
   <div class="wrapper">
     <header>
@@ -52,10 +22,7 @@ function html(quiz = null) {
         </div>
     </header>
     <main>
-        ${questions
-          .splice(0, 1) // remove this
-          .map((question) => Question(question))
-          .join("")}
+    ${quiz ? Question(questions[currentQuestionIndex]) : ""}  
     </main>
   </div>
   <footer>
@@ -67,14 +34,31 @@ function html(quiz = null) {
   `;
 }
 
-function eventListeners() {}
+function handleContinue() {
+  const continueButton = document.querySelector(".continue-button");
+  continueButton.addEventListener("click", () => {
+    const quiz = db.getQuiz();
+    if (quiz.current_question >= quiz.results.length - 1) {
+      // game is over
+      // show score
+      // show results
+      // new quiz button
+      // go home button
+    }
+    quiz.current_question++;
+    db.setQuiz(quiz);
+    window.location.href = "/quiz";
+  });
+}
 
 export async function Page() {
-  const quiz = await api.quiz();
-  console.log(quiz.results[0]);
+  const quiz = db.getQuiz();
+  if (!quiz) window.location.href = "/";
   return {
     html: html(quiz),
-    addEventListeners: eventListeners,
+    addEventListeners: () => {
+      handleContinue();
+    },
   };
 }
 

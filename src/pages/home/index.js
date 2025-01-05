@@ -1,28 +1,48 @@
+import "./index.css";
 import { api } from "../../utils/api";
+import { Categories } from "./components/Categories";
+import { GameModal, handleCancel, handleSubmit } from "./components/GameModal";
 
 function html(categories) {
   return `
-  <div>Home</div>
-  ${CategoriesList(categories)}
+  <header>
+    <div class="wrapper">
+      <h1>Quiz Game</h1>
+    </div>
+  </header>
+  <main>
+    <div class="wrapper">
+      <div>Home</div>
+      ${Categories(categories)}
+      <button class="play-button">Play</button>
+      ${GameModal()}
+    </div>
+  </main>
+  <footer>
+    <div class="wrapper">
+      <p>Made by <a href="http://antonhansson.net" target="_blank">Anton Hansson</a> using the <a href="https://opentdb.com" target="_blank">Open Trivia Database</a></p>
+    </div>
+  </footer>
   `;
 }
 
-function CategoriesList(categories) {
-  if (!categories) return "";
-  return `
-  <ul>
-    ${categories.map((category) => `<li>${category.name}</li>`).join("")}
-  </ul>
-  `;
+function handlePlay() {
+  const playButton = document.querySelector(".play-button");
+  const gameModal = document.querySelector(".game-modal");
+  playButton.addEventListener("click", () => {
+    gameModal.showModal();
+  });
 }
-
-function eventListeners() {}
 
 export async function Page() {
-  const categories = await api.categories();
+  const categories = (await api.categories()) || [];
   return {
     html: html(categories.trivia_categories),
-    addEventListeners: eventListeners,
+    addEventListeners: () => {
+      handlePlay();
+      handleCancel();
+      handleSubmit();
+    },
   };
 }
 
