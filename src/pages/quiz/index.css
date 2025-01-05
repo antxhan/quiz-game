@@ -89,6 +89,7 @@ main {
   align-items: center;
   text-wrap: balance;
   color: var(--clr-neutral-000);
+  transition: all 0.2s ease-in-out;
   span:first-child {
     height: 1.5rem;
     display: flex;
@@ -96,15 +97,16 @@ main {
     justify-content: center;
   }
   &.correct {
-    background-color: green;
+    border-color: green;
+    opacity: 1;
   }
   &.incorrect {
-    background-color: red;
+    border-color: red;
   }
-}
 
-button[disabled] {
-  opacity: 0.5;
+  &:not([disabled]):hover {
+    background-color: var(--clr-neutral-700);
+  }
 }
 
 /* FOOTER ------------------------------------------------------ */
