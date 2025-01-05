@@ -47,6 +47,7 @@ header {
   border-radius: 100vw;
   height: 1.5rem;
   .progress-bar__progress {
+    transition: width 0.5s ease-in-out;
     background-color: var(--clr-neutral-000);
     border-radius: inherit;
     height: 100%;

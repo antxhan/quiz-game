@@ -10,7 +10,7 @@ function html(quiz) {
   const currentQuestion = questions[quiz.current_question];
   const progress = (quiz.current_question / questions.length) * 100;
   return `
-  <div class="wrapper">
+  <div class="wrapper" id="quiz">
   ${
     quiz.current_question < questions.length
       ? QuizView(currentQuestion, progress)
@@ -30,11 +30,13 @@ export async function Page() {
   const quiz = db.getQuiz();
   if (!quiz || quiz.current_question === quiz.results.length)
     window.location.href = "/";
+
+  const isGameOver = quiz.current_question >= quiz.results.length;
   return {
     html: html(quiz),
     addEventListeners: () => {
-      handleClose();
-      handleContinue(quiz);
+      (!isGameOver && handleClose()) || null;
+      handleContinue();
       handleSkip(quiz);
     },
   };

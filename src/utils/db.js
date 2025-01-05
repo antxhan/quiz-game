@@ -17,4 +17,13 @@ export const db = {
     quiz.current_question = index;
     localStorage.setItem("quiz", JSON.stringify(quiz));
   },
+  getNextQuestion() {
+    const quiz = this.getQuiz();
+    return quiz.results[quiz.current_question];
+  },
+  incrementQuestionIndex() {
+    const quiz = this.getQuiz();
+    quiz.current_question++;
+    this.setQuiz(quiz);
+  },
 };
