@@ -57,7 +57,8 @@ footer {
 } */
 
 .wrapper {
-  max-width: min(100%, 1000px);
+  --padding-inline: 2rem;
+  max-width: min(100% - var(--padding-inline) * 2, 1000px);
 }
 
 button {

@@ -7,7 +7,7 @@ body {
     width: 100%;
   }
   & > .wrapper {
-    padding-inline: 2rem;
+    /* padding-inline: 2rem; */
     flex-grow: 1;
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -92,7 +92,6 @@ main {
 /* FOOTER ------------------------------------------------------ */
 
 footer {
-  padding-inline: 2rem;
   border-top: 1px solid var(--clr-neutral-000);
   display: flex;
   justify-content: center;

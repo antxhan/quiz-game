@@ -52,12 +52,10 @@ function html(quiz = null) {
         </div>
     </header>
     <main>
-        <div class="wrapper">
-            ${questions
-              .splice(0, 1) // remove this
-              .map((question) => Question(question))
-              .join("")}
-        </div>
+        ${questions
+          .splice(0, 1) // remove this
+          .map((question) => Question(question))
+          .join("")}
     </main>
   </div>
   <footer>
