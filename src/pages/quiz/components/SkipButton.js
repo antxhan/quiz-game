@@ -42,3 +42,8 @@ export function handleSkip(quiz) {
     }
   });
 }
+
+export function disableSkipButton() {
+  const skipButton = document.querySelector(".skip-button");
+  skipButton.disabled = true;
+}

@@ -41,6 +41,9 @@ function handleAnswer(button) {
   // disable buttons and set their class
   setAnswerButtonsClass(correctAnswer);
   enableContinueButton();
+  // TODO: disable skip button
+  const skipButton = document.querySelector(".skip-button");
+  skipButton.disabled = true;
 }
 
 export function setAnswerButtonsClass(correctAnswer) {

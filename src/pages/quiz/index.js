@@ -3,7 +3,11 @@ import { db } from "../../utils/db";
 import { handleClose, QuizView } from "./views/Quiz";
 import { ResultsView } from "./views/Results";
 import { ContinueButton, handleContinue } from "./components/ContinueButton";
-import { handleSkip, SkipButton } from "./components/SkipButton";
+import {
+  disableSkipButton,
+  handleSkip,
+  SkipButton,
+} from "./components/SkipButton";
 import {
   enableContinueButton,
   listenToAnswers,
@@ -55,6 +59,7 @@ export async function Page() {
       }
       (!isAnswered && listenToAnswers()) || null;
       (isAnswered && enableContinueButton()) || null;
+      (isAnswered && disableSkipButton()) || null;
     },
   };
 }

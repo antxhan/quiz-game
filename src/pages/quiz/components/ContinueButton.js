@@ -21,6 +21,8 @@ export function handleContinue() {
   const view = document.querySelector("#quiz");
   const continueButton = ContinueButton();
   continueButton.addEventListener("click", () => {
+    const skipButton = document.querySelector(".skip-button");
+    skipButton.disabled = false;
     db.incrementQuestionIndex();
     let quiz = db.getQuiz();
     if (quiz.current_question <= quiz.results.length - 1) {
