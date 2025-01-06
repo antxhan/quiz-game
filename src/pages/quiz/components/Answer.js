@@ -47,10 +47,7 @@ function handleAnswer(button) {
 }
 
 export function setAnswerButtonsClass(correctAnswer) {
-  console.log("go");
-  console.log(correctAnswer);
   const buttons = document.querySelectorAll(".answer-button");
-  console.log(buttons);
   buttons.forEach((button) => {
     button.disabled = true;
     if (button.querySelector("span:last-child").textContent === correctAnswer) {
