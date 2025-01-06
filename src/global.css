@@ -1,6 +1,7 @@
 :root {
   /* COLORS */
   --clr-neutral-000: #ffffff;
+  --clr-neutral-300: #b9b9b9;
   --clr-neutral-700: #2b2b2b;
   --clr-neutral-800: #1e1e1e;
 
@@ -13,6 +14,7 @@
   --fs-large: 1.5rem;
   --fs-medium: 1.25rem;
   --fs-normal: 1rem;
+  --fs-small: 0.875rem;
 }
 
 *,
@@ -81,6 +83,42 @@ button {
 img {
   max-width: 100%;
   display: flex;
+}
+
+label {
+  margin-left: 0.5rem;
+  margin-bottom: calc(var(--fs-small) / -2);
+  z-index: 2;
+  background-color: var(--clr-neutral-000);
+  width: max-content;
+  padding-inline: 0.25rem;
+}
+
+input,
+select {
+  font-size: var(--fs-normal);
+  border-radius: 0.5rem;
+  border: 1px solid var(--clr-neutral-300);
+  /* padding: 0.5rem; */
+  padding: 0.75rem;
+}
+select {
+  padding: 0.75rem 0.5rem;
+}
+
+label {
+  font-size: var(--fs-small);
+}
+
+dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  padding: 2rem;
+  border-radius: 1rem;
+  border: none;
 }
 
 /* MEDIA QUERIES ------------------------------------------------------ */

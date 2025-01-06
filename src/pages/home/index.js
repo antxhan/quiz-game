@@ -15,7 +15,6 @@ function html(categories) {
       <div>Home</div>
       ${Categories(categories)}
       <button class="play-button">Play</button>
-      ${GameModal()}
     </div>
   </main>
   <footer>
@@ -23,6 +22,7 @@ function html(categories) {
       <p>Made by <a href="http://antonhansson.net" target="_blank">Anton Hansson</a> using the <a href="https://opentdb.com" target="_blank">Open Trivia Database</a></p>
     </div>
   </footer>
+  ${GameModal()}
   `;
 }
 

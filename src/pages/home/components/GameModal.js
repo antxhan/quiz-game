@@ -1,52 +1,44 @@
 import { api } from "../../../utils/api";
 import { db } from "../../../utils/db";
+import NumberInput from "./NumberInput";
+import Select from "./Select";
 
 export function GameModal() {
   return `
     <dialog class="game-modal">
-        <form>
-            <label for="amount">Amount</label>
-            <input type="number" id="amount" name="amount" min="1" max="10" value="10" />
-            <label for="category">Category</label>
-            <select id="category" name="category">
-                <option value="0">Select a category</option>
-            </select>
-            <label for="difficulty">Difficulty</label>
-            <select id="difficulty" name="difficulty">
-                <option value="0">Select a difficulty</option>
-            </select>
-            <label for="type">Type</label>
-            <select id="type" name="type">
-                <option value="0">Select a type</option>
-            </select>
-            <label for="encoding">Encoding</label>
-            <select id="encoding" name="encoding">
-                <option value="0">Select an encoding</option>
-            </select>
-            <button type="reset">Cancel</button>
-            <button type="submit">Play</button>
+        <h2>New Quiz</h2>
+        <form action="/quiz">
+            ${NumberInput("form__number-input", "Questions", "amount")}
+            ${Select("form__select", "Category", "category", [])}
+            ${Select("form__select", "Difficulty", "difficulty", [])}
+            ${Select("form__select", "Type", "type", [])}
+            ${Select("form__select", "Encoding", "encoding", [])}
+            <div class="game-modal__buttons">
+              <button type="reset">Cancel</button>
+              <button type="submit">Play</button>
+            </div>
         </form>
     </dialog>
     `;
 }
 
 export function handleCancel() {
-  const cancelButton = document.querySelector("button[type='reset']");
+  const gameModal = document.querySelector(".game-modal");
+  const cancelButton = gameModal.querySelector("button[type='reset']");
   cancelButton.addEventListener("click", () => {
-    const gameModal = document.querySelector(".game-modal");
     gameModal.close();
   });
 }
 
 export function handleSubmit() {
-  const playButton = document.querySelector("button[type='submit']");
+  const gameModal = document.querySelector(".game-modal");
+  const playButton = gameModal.querySelector("button[type='submit']");
   playButton.addEventListener("click", async (e) => {
-    e.preventDefault();
-    const gameModal = document.querySelector(".game-modal");
-    gameModal.close();
+    // e.preventDefault();
+    // gameModal.close();
     // TODO: get all inputs values
     const quiz = await api.quiz();
     db.setQuiz(quiz);
-    window.location.href = "/quiz";
+    // window.location.href = "/quiz";
   });
 }

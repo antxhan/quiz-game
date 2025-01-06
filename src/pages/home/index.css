@@ -2,8 +2,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
   /* border: 1px solid red; */
-  & > * {
+  header,
+  main,
+  footer {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -31,4 +34,41 @@ main {
 
 footer {
   padding-block: 2rem;
+}
+
+dialog {
+  &[open] {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    .form__number-input,
+    .form__select {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .game-modal__buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+    button {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  dialog {
+    width: 100%;
+    form {
+      width: 100%;
+    }
+  }
 }
