@@ -18,7 +18,7 @@ function html(categories) {
   </header>
   <main>
     <div class="wrapper">
-      <div>Home</div>
+    <h2>Categories</h2>
       ${Categories(categories)}
       <button class="play-button">Play</button>
     </div>
@@ -49,39 +49,63 @@ async function populateSelect(select, options, selectedId = null) {
   select.innerHTML = selectOptions;
 }
 
+async function initializeGameModal() {
+  const gameModal = document.querySelector(".game-modal");
+  // add categories to the game modal
+  let categoriesOptions = await api.categories();
+  categoriesOptions = categoriesOptions.trivia_categories;
+  categoriesOptions.unshift({ id: "", name: "All" });
+  const categoriesSelect = gameModal.querySelector("select[name='category']");
+  populateSelect(categoriesSelect, categoriesOptions, "");
+
+  // add difficulty to the game modal
+  const difficultySelect = gameModal.querySelector("select[name='difficulty']");
+  const difficultyOptions = [
+    { id: "", name: "Any" },
+    { id: "easy", name: "Easy" },
+    { id: "medium", name: "Medium" },
+    { id: "hard", name: "Hard" },
+  ];
+  populateSelect(difficultySelect, difficultyOptions, "");
+}
+
+function handleCategoryClick() {
+  const categoryButtons = document.querySelectorAll(".category-button");
+  categoryButtons.forEach((button) => {
+    button.addEventListener("click", async (e) => {
+      const id = e.currentTarget.dataset.categoryId;
+      console.log(id);
+
+      // open game modal
+      const gameModal = document.querySelector(".game-modal");
+      gameModal.showModal();
+      await initializeGameModal();
+
+      // set clicked category as selected
+      const categoriesSelect = gameModal.querySelector(
+        "select[name='category']"
+      );
+      categoriesSelect.value = id;
+    });
+  });
+}
+
 function handlePlay() {
   const playButton = document.querySelector(".play-button");
   const gameModal = document.querySelector(".game-modal");
   playButton.addEventListener("click", async () => {
     gameModal.showModal();
-
-    // add categories to the game modal
-    let categoriesOptions = await api.categories();
-    categoriesOptions = categoriesOptions.trivia_categories;
-    categoriesOptions.unshift({ id: "", name: "All" });
-    // console.log(categoriesOptions);
-    const categoriesSelect = gameModal.querySelector("select[name='category']");
-    populateSelect(categoriesSelect, categoriesOptions, "");
-
-    // add difficulty to the game modal
-    const difficultySelect = gameModal.querySelector(
-      "select[name='difficulty']"
-    );
-    const difficultyOptions = [
-      { id: "", name: "Any" },
-      { id: "easy", name: "Easy" },
-      { id: "medium", name: "Medium" },
-      { id: "hard", name: "Hard" },
-    ];
-    populateSelect(difficultySelect, difficultyOptions, "");
+    await initializeGameModal();
   });
 }
 
 export async function Page() {
   const categories = (await api.categories()) || [];
+  categories.trivia_categories.push({ id: "", name: "All" });
   return {
     html: html(categories.trivia_categories),
     addEventListeners: () => {
+      handleCategoryClick();
       handlePlay();
       handleFormChange();
       handleCancel();

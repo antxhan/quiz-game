@@ -34,6 +34,8 @@ main {
 
 footer {
   padding-block: 2rem;
+  text-align: center;
+  text-wrap: balance;
 }
 
 dialog {
@@ -64,11 +66,48 @@ dialog {
   }
 }
 
+.category-list {
+  width: 100%;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+  li:last-child {
+    grid-column: 1 / -1;
+    button {
+      justify-content: center;
+    }
+  }
+}
+
+.category-icon {
+  font-size: var(--fs-xlarge);
+}
+
+.category-name {
+  text-wrap: pretty;
+}
+
+.category-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+  align-items: center;
+}
+
 @media (max-width: 700px) {
   dialog {
     width: 100%;
     form {
       width: 100%;
+    }
+  }
+  .category-list {
+    li:last-child {
+      button {
+        justify-content: start;
+      }
     }
   }
 }
