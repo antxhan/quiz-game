@@ -14,13 +14,12 @@ function html(categories) {
   <header>
     <div class="wrapper">
       <h1>Quiz Game</h1>
+      <p>Welcome to the Quiz Game! Pick a category and start playing.</p>
     </div>
   </header>
   <main>
     <div class="wrapper">
-    <h2>Categories</h2>
       ${Categories(categories)}
-      <button class="play-button">Play</button>
     </div>
   </main>
   <footer>
@@ -90,15 +89,6 @@ function handleCategoryClick() {
   });
 }
 
-function handlePlay() {
-  const playButton = document.querySelector(".play-button");
-  const gameModal = document.querySelector(".game-modal");
-  playButton.addEventListener("click", async () => {
-    gameModal.showModal();
-    await initializeGameModal();
-  });
-}
-
 export async function Page() {
   const categories = (await api.categories()) || [];
   categories.trivia_categories.push({ id: "", name: "All" });
@@ -106,7 +96,6 @@ export async function Page() {
     html: html(categories.trivia_categories),
     addEventListeners: () => {
       handleCategoryClick();
-      handlePlay();
       handleFormChange();
       handleCancel();
       handleSubmit();
