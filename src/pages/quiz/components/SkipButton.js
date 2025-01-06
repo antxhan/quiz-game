@@ -17,6 +17,11 @@ export function handleSkip(quiz) {
   skipButton.addEventListener("click", () => {
     db.incrementQuestionIndex();
     let quiz = db.getQuiz();
+    // push question to incorrect answers in db
+    db.setAnswers({
+      correct: [...quiz.answers.correct],
+      incorrect: [...quiz.answers.incorrect, quiz.current_question - 1],
+    });
     if (quiz.current_question <= quiz.results.length - 1) {
       const question = quiz.results[quiz.current_question];
       const progress = (quiz.current_question / quiz.results.length) * 100;
@@ -27,16 +32,15 @@ export function handleSkip(quiz) {
       if (quiz.current_question === quiz.results.length - 1) {
         document.querySelector(".continue-button").textContent = "Results";
       }
-
-      // push question to incorrect answers in db
-      db.setAnswers({
-        correct: [...quiz.answers.correct],
-        incorrect: [...quiz.answers.incorrect, quiz.current_question],
-      });
     } else if (quiz.current_question === quiz.results.length) {
       view.innerHTML = ResultsView(quiz);
       skipButton.textContent = "Home";
+      skipButton.remove();
       document.querySelector(".continue-button").textContent = "New Quiz";
+      document.querySelector(".continue-button").disabled = false;
+      document.querySelector(
+        ".continue-button"
+      ).parentNode.style.justifyContent = "end";
     } else {
       window.location.href = "/";
     }

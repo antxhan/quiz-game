@@ -38,14 +38,14 @@ function html(quiz) {
 
 export async function Page() {
   const quiz = db.getQuiz();
-  if (!quiz || quiz.current_question === quiz.results.length)
-    window.location.href = "/";
+  if (!quiz) window.location.href = "/";
 
   const isAnswered =
     quiz.answers.correct.includes(quiz.current_question) ||
     quiz.answers.incorrect.includes(quiz.current_question);
 
   const isGameOver = quiz.current_question >= quiz.results.length;
+
   return {
     html: html(quiz),
     addEventListeners: () => {
@@ -59,9 +59,18 @@ export async function Page() {
       }
       (!isAnswered && listenToAnswers()) || null;
       (isAnswered && enableContinueButton()) || null;
+      (isGameOver && enableContinueButton()) || null;
       (isAnswered && disableSkipButton()) || null;
+      (isGameOver && removeSkipButton()) || null;
     },
   };
+}
+
+function removeSkipButton() {
+  const skipButton = document.querySelector(".skip-button");
+  document.querySelector(".skip-button").parentNode.style.justifyContent =
+    "end";
+  skipButton.remove();
 }
 
 export function Loading() {
