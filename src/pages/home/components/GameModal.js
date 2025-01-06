@@ -11,7 +11,7 @@ export function GameModal() {
             ${NumberInput("form__number-input", "Questions", "amount")}
             ${Select("form__select", "Category", "category", [])}
             ${Select("form__select", "Difficulty", "difficulty", [])}
-            ${Select("form__select", "Type", "type", [])}
+            ${/* Select("form__select", "Type", "type", []) */ ""}
             <div class="game-modal__buttons">
               <button type="reset">Cancel</button>
               <button type="submit">Play</button>
@@ -19,6 +19,68 @@ export function GameModal() {
         </form>
     </dialog>
     `;
+}
+
+export function handleFormChange() {
+  const maxAmount = 50;
+  const gameModal = document.querySelector(".game-modal");
+  const amountInput = gameModal.querySelector("input[name='amount']");
+  const categoriesSelect = gameModal.querySelector("select[name='category']");
+  const difficultySelect = gameModal.querySelector("select[name='difficulty']");
+  const inputs = [amountInput, categoriesSelect, difficultySelect];
+  inputs.forEach((input) => {
+    input.addEventListener("change", async (e) => {
+      if (categoriesSelect.value !== "") {
+        const allQuestionCount = await api.categoryMaxQuestions(
+          categoriesSelect.value
+        );
+        switch (difficultySelect.value) {
+          case "easy":
+            amountInput.max = Math.min(
+              allQuestionCount.total_easy_question_count,
+              maxAmount
+            );
+            break;
+          case "medium":
+            amountInput.max = Math.min(
+              allQuestionCount.total_medium_question_count,
+              maxAmount
+            );
+            break;
+          case "hard":
+            amountInput.max = Math.min(
+              allQuestionCount.total_hard_question_count,
+              maxAmount
+            );
+            break;
+          default:
+            amountInput.max = Math.min(
+              allQuestionCount.total_question_count,
+              maxAmount
+            );
+        }
+      } else {
+        amountInput.max = maxAmount;
+      }
+      console.log(amountInput.max);
+    });
+  });
+}
+
+export function handleCateogryChange() {
+  const gameModal = document.querySelector(".game-modal");
+  const categorySelect = gameModal.querySelector("select[name='category']");
+  const difficultySelect = gameModal.querySelector("select[name='difficulty']");
+  categorySelect.addEventListener("change", async (e) => {
+    console.log(e.target.value);
+    const categoryId = e.target.value;
+    if (categoryId !== "") {
+      const categoryMaxQuestions = await api.categoryMaxQuestions(categoryId);
+      console.log(categoryMaxQuestions);
+    } else {
+      //
+    }
+  });
 }
 
 export function handleCancel() {
@@ -39,11 +101,9 @@ export function handleSubmit() {
       e.preventDefault();
       // TODO: get all inputs values
 
-      const amount = form.amount.value;
-      const category = form.category.value;
-      const difficulty = form.difficulty.value;
-      const type = form.type.value;
-      const encoding = form.encoding.value;
+      // const amount = form.amount.value;
+      // const category = form.category.value;
+      // const difficulty = form.difficulty.value;
 
       const quiz = await api.quiz();
       db.setQuiz(quiz);

@@ -1,7 +1,13 @@
 import "./index.css";
 import { api } from "../../utils/api";
 import { Categories } from "./components/Categories";
-import { GameModal, handleCancel, handleSubmit } from "./components/GameModal";
+import {
+  GameModal,
+  handleCancel,
+  handleCateogryChange,
+  handleFormChange,
+  handleSubmit,
+} from "./components/GameModal";
 import { Option } from "./components/Select";
 
 function html(categories) {
@@ -53,31 +59,31 @@ function handlePlay() {
     // add categories to the game modal
     let categoriesOptions = await api.categories();
     categoriesOptions = categoriesOptions.trivia_categories;
-    categoriesOptions.unshift({ id: null, name: "All" });
-    console.log(categoriesOptions);
+    categoriesOptions.unshift({ id: "", name: "All" });
+    // console.log(categoriesOptions);
     const categoriesSelect = gameModal.querySelector("select[name='category']");
-    populateSelect(categoriesSelect, categoriesOptions, null);
+    populateSelect(categoriesSelect, categoriesOptions, "");
 
     // add difficulty to the game modal
     const difficultySelect = gameModal.querySelector(
       "select[name='difficulty']"
     );
     const difficultyOptions = [
-      { id: null, name: "Any" },
+      { id: "", name: "Any" },
       { id: "easy", name: "Easy" },
       { id: "medium", name: "Medium" },
       { id: "hard", name: "Hard" },
     ];
-    populateSelect(difficultySelect, difficultyOptions, 0);
+    populateSelect(difficultySelect, difficultyOptions, "");
 
-    // add type to the game modal
-    const typeSelect = gameModal.querySelector("select[name='type']");
-    const typeOptions = [
-      { id: null, name: "Any" },
-      { id: "multiple", name: "Multiple" },
-      { id: "boolean", name: "True / False" },
-    ];
-    populateSelect(typeSelect, typeOptions, 0);
+    // // add type to the game modal
+    // const typeSelect = gameModal.querySelector("select[name='type']");
+    // const typeOptions = [
+    //   { id: "", name: "Any" },
+    //   { id: "multiple", name: "Multiple" },
+    //   { id: "boolean", name: "True / False" },
+    // ];
+    // populateSelect(typeSelect, typeOptions, "");
   });
 }
 
@@ -87,6 +93,8 @@ export async function Page() {
     html: html(categories.trivia_categories),
     addEventListeners: () => {
       handlePlay();
+      // handleCateogryChange();
+      handleFormChange();
       handleCancel();
       handleSubmit();
     },

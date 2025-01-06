@@ -101,7 +101,11 @@ select {
   border: 1px solid var(--clr-neutral-300);
   /* padding: 0.5rem; */
   padding: 0.75rem;
+  &:user-invalid {
+    background-color: red;
+  }
 }
+
 select {
   padding: 0.75rem 0.5rem;
 }
