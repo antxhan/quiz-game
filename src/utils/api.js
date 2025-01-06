@@ -11,7 +11,6 @@ export const api = {
   },
   async categories() {
     const cachedCategories = db.getCategories();
-    console.log(cachedCategories);
     if (cachedCategories && cachedCategories?.trivia_categories?.length > 0) {
       return cachedCategories;
     } else {
