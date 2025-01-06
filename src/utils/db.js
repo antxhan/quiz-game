@@ -35,7 +35,6 @@ export const db = {
     localStorage.setItem("quiz", JSON.stringify(quiz));
   },
   setAnswers(answers = { correct: [], incorrect: [] }) {
-    console.log("called");
     const quiz = this.getQuiz();
     quiz.answers = answers;
     localStorage.setItem("quiz", JSON.stringify(quiz));

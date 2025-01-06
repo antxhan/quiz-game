@@ -4,7 +4,6 @@ import { Categories } from "./components/Categories";
 import {
   GameModal,
   handleCancel,
-  handleCateogryChange,
   handleFormChange,
   handleSubmit,
 } from "./components/GameModal";
@@ -75,15 +74,6 @@ function handlePlay() {
       { id: "hard", name: "Hard" },
     ];
     populateSelect(difficultySelect, difficultyOptions, "");
-
-    // // add type to the game modal
-    // const typeSelect = gameModal.querySelector("select[name='type']");
-    // const typeOptions = [
-    //   { id: "", name: "Any" },
-    //   { id: "multiple", name: "Multiple" },
-    //   { id: "boolean", name: "True / False" },
-    // ];
-    // populateSelect(typeSelect, typeOptions, "");
   });
 }
 
@@ -93,7 +83,6 @@ export async function Page() {
     html: html(categories.trivia_categories),
     addEventListeners: () => {
       handlePlay();
-      // handleCateogryChange();
       handleFormChange();
       handleCancel();
       handleSubmit();

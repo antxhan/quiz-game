@@ -62,24 +62,7 @@ export function handleFormChange() {
       } else {
         amountInput.max = maxAmount;
       }
-      console.log(amountInput.max);
     });
-  });
-}
-
-export function handleCateogryChange() {
-  const gameModal = document.querySelector(".game-modal");
-  const categorySelect = gameModal.querySelector("select[name='category']");
-  const difficultySelect = gameModal.querySelector("select[name='difficulty']");
-  categorySelect.addEventListener("change", async (e) => {
-    console.log(e.target.value);
-    const categoryId = e.target.value;
-    if (categoryId !== "") {
-      const categoryMaxQuestions = await api.categoryMaxQuestions(categoryId);
-      console.log(categoryMaxQuestions);
-    } else {
-      //
-    }
   });
 }
 
@@ -99,18 +82,14 @@ export function handleSubmit() {
     const isValid = form.checkValidity();
     if (isValid) {
       e.preventDefault();
-      // TODO: get all inputs values
-
-      // const amount = form.amount.value;
-      // const category = form.category.value;
-      // const difficulty = form.difficulty.value;
-
-      const quiz = await api.quiz();
+      const amount = form.amount.value;
+      const category = form.category.value;
+      const difficulty = form.difficulty.value;
+      const quiz = await api.quiz({ amount, category, difficulty });
       db.setQuiz(quiz);
       window.location.href = "/quiz";
     } else {
       // invalid form
     }
-    // e.preventDefault();
   });
 }
