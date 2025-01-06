@@ -40,6 +40,12 @@ export const db = {
     quiz.answers = answers;
     localStorage.setItem("quiz", JSON.stringify(quiz));
   },
+  setCategories(categories) {
+    localStorage.setItem("categories", JSON.stringify(categories));
+  },
+  getCategories() {
+    return JSON.parse(localStorage.getItem("categories") || "[]");
+  },
 };
 
 // quiz.score = 0;

@@ -1,14 +1,24 @@
+import { db } from "./db";
+
 export const api = {
   async _request(endpoint, params = null) {
+    console.log("requesting from API");
     const baseUrl = "https://opentdb.com";
     const url = new URL(endpoint, baseUrl);
     if (params) url.search = new URLSearchParams(params);
-    // const response = await fetch(url);
-    // return response.json();
+    const response = await fetch(url);
+    return response.json();
   },
-  categories() {
-    const endpoint = "/api_category.php";
-    return this._request(endpoint);
+  async categories() {
+    const cachedCategories = db.getCategories();
+    if (cachedCategories && cachedCategories?.trivia_categories.length > 0) {
+      return cachedCategories;
+    } else {
+      const endpoint = "/api_category.php";
+      const categories = await this._request(endpoint);
+      db.setCategories(categories);
+      return categories;
+    }
   },
   quiz({
     amount = 10,

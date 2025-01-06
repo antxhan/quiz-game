@@ -9,8 +9,8 @@ export default function Select(className, label, name, options) {
   `;
 }
 
-function Option({ value, label }) {
+export function Option({ value, label, selected = false }) {
   return `
-    <option value="${value}">${label}</option>
+    <option value="${value}" ${selected ? "selected" : ""}>${label}</option>
     `;
 }
