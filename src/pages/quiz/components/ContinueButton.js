@@ -22,7 +22,7 @@ export function handleContinue() {
   const continueButton = ContinueButton();
   continueButton.addEventListener("click", () => {
     const skipButton = document.querySelector(".skip-button");
-    skipButton.disabled = false;
+    if (skipButton) skipButton.disabled = false;
     db.incrementQuestionIndex();
     let quiz = db.getQuiz();
     if (quiz.current_question <= quiz.results.length - 1) {
@@ -40,8 +40,11 @@ export function handleContinue() {
       view.innerHTML = ResultsView(quiz);
       continueButton.textContent = "New Quiz";
       document.querySelector(".skip-button").textContent = "Home";
+      document.querySelector(".skip-button").parentNode.style.justifyContent =
+        "end";
+      document.querySelector(".skip-button").remove();
     } else {
-      window.location.href = "/new-quiz";
+      window.location.href = "/";
     }
   });
 }
