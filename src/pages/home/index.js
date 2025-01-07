@@ -14,7 +14,8 @@ function html(categories) {
   <header>
     <div class="wrapper">
       <h1>Quiz Game</h1>
-      <p>Welcome to the Quiz Game! Pick a category and start playing.</p>
+      <p>Welcome to the Quiz Game! <br>
+      Pick a category and start playing.</p>
     </div>
   </header>
   <main>
@@ -25,6 +26,7 @@ function html(categories) {
   <footer>
     <div class="wrapper">
       <p>Made by <a href="http://antonhansson.net" target="_blank">Anton Hansson</a> using the <a href="https://opentdb.com" target="_blank">Open Trivia Database</a></p>
+      <p>Source code available on <a href="https://github.com/antxhan/quiz-game" target="_blank">GitHub</a></p>
     </div>
   </footer>
   ${GameModal()}

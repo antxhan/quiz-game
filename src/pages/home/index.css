@@ -32,6 +32,10 @@ header {
     align-items: center;
     gap: 1rem;
   }
+  p {
+    text-wrap: balance;
+    text-align: center;
+  }
 }
 
 main {
