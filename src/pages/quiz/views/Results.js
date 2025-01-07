@@ -6,6 +6,13 @@ export function ResultsView(quiz) {
   // show score
   // show results
   return `
-    Game over
+    <div>
+        <h2>Results</h2>
+        <p>You got ${score} out of ${quiz.results.length} questions correct!</p>
+        <ul>
+            ${incorrect_answers
+              .map((answer) => `<li>${answer + 1}</li>`)
+              .join("")}
+    </div>
     `;
 }
