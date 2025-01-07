@@ -22,6 +22,7 @@
   --fs-medium: 1.25rem;
   --fs-normal: 1rem;
   --fs-small: 0.875rem;
+  --fs-xsmall: 0.75rem;
 }
 
 *,
@@ -114,6 +115,9 @@ select {
     border-color: var(--clr-incorrect);
     outline-color: var(--clr-incorrect);
     outline: 1px solid var(--clr-incorrect);
+    & + .error-message {
+      display: block;
+    }
   }
 }
 

@@ -65,6 +65,13 @@ dialog {
       display: flex;
       flex-direction: column;
     }
+    .form__number-input {
+      & > div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
   }
   .game-modal__buttons {
     display: flex;
@@ -73,6 +80,13 @@ dialog {
     button {
       width: 100%;
     }
+  }
+  .error-message {
+    display: none;
+    font-size: var(--fs-xsmall);
+    padding-left: 0.75rem;
+    padding-block-start: 0.25rem;
+    color: var(--clr-incorrect);
   }
 }
 
