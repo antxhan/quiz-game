@@ -109,8 +109,11 @@ select {
   border: 1px solid var(--clr-neutral-300);
   /* padding: 0.5rem; */
   padding: 0.75rem;
-  &:user-invalid {
-    background-color: red;
+  &:user-invalid,
+  &:focus:user-invalid {
+    border-color: var(--clr-incorrect);
+    outline-color: var(--clr-incorrect);
+    outline: 1px solid var(--clr-incorrect);
   }
 }
 
