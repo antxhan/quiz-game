@@ -21,13 +21,19 @@ export function GameModal() {
     `;
 }
 
+const errorMesageTextcontent = (amount) => {
+  return `Max: ${amount} questions for this category and difficulty`;
+};
+
 export function handleFormChange() {
   const maxAmount = 50;
   const gameModal = document.querySelector(".game-modal");
   const amountInput = gameModal.querySelector("input[name='amount']");
   const categoriesSelect = gameModal.querySelector("select[name='category']");
+  const errorMessage = gameModal.querySelector(".error-message");
   const difficultySelect = gameModal.querySelector("select[name='difficulty']");
   const inputs = [amountInput, categoriesSelect, difficultySelect];
+  let maximum = maxAmount;
   inputs.forEach((input) => {
     input.addEventListener("change", async (e) => {
       if (categoriesSelect.value !== "") {
@@ -36,28 +42,36 @@ export function handleFormChange() {
         );
         switch (difficultySelect.value) {
           case "easy":
-            amountInput.max = Math.min(
+            maximum = Math.min(
               allQuestionCount.total_easy_question_count,
               maxAmount
             );
+            amountInput.max = maximum;
+            errorMessage.textContent = errorMesageTextcontent(maximum);
             break;
           case "medium":
-            amountInput.max = Math.min(
+            maximum = Math.min(
               allQuestionCount.total_medium_question_count,
               maxAmount
             );
+            amountInput.max = maximum;
+            errorMessage.textContent = errorMesageTextcontent(maximum);
             break;
           case "hard":
-            amountInput.max = Math.min(
+            maximum = Math.min(
               allQuestionCount.total_hard_question_count,
               maxAmount
             );
+            amountInput.max = maximum;
+            errorMessage.textContent = errorMesageTextcontent(maximum);
             break;
           default:
-            amountInput.max = Math.min(
+            maximum = Math.min(
               allQuestionCount.total_question_count,
               maxAmount
             );
+            amountInput.max = maximum;
+            errorMessage.textContent = errorMesageTextcontent(maximum);
         }
       } else {
         amountInput.max = maxAmount;

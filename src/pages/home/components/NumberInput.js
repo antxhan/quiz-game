@@ -10,6 +10,7 @@ export default function NumberInput(
     <div class="${className}">
         <label for="${name}">${label}</label>
         <input type="number" id="${name}" name="${name}" min="${min}" max="${max}" value="${value}" required />
+        <span class="error-message">Max: ${max} questions for this category and difficulty</span>
     </div>
   `;
 }

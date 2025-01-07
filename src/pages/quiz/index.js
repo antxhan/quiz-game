@@ -62,8 +62,13 @@ export async function Page() {
       (isGameOver && enableContinueButton()) || null;
       (isAnswered && disableSkipButton()) || null;
       (isGameOver && removeSkipButton()) || null;
+      (isGameOver && setDisplayFlex()) || null;
     },
   };
+}
+
+function setDisplayFlex() {
+  document.querySelector("#quiz").style.display = "flex";
 }
 
 function removeSkipButton() {
