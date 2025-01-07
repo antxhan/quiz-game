@@ -66,6 +66,7 @@ header {
 main {
   grid-column: 2;
   place-content: center;
+  padding-block-end: 9rem;
 }
 
 .question-container {
@@ -112,6 +113,9 @@ footer {
   display: flex;
   justify-content: center;
   padding-block: 2rem;
+  position: fixed;
+  bottom: 0;
+  background-color: var(--clr-neutral-800);
   .wrapper {
     width: 100%;
     display: flex;

@@ -6,6 +6,8 @@
   --clr-neutral-800: #1e1e1e;
 
   --clr-primary: #007bff;
+  --clr-correct: #1db16c;
+  --clr-incorrect: #dc3545;
 
   /* FONT FAMILIES */
   --ff-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
