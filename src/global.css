@@ -138,6 +138,8 @@ dialog {
   padding: 2rem;
   border-radius: 1rem;
   border: none;
+  z-index: 5;
+  /* position: relative; */
 }
 
 a {
@@ -150,6 +152,23 @@ a {
 
 :focus {
   outline-color: var(--clr-primary);
+}
+
+.toaster-error-message {
+  position: fixed;
+  bottom: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.5);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100%, 30rem);
+  background-color: var(--clr-neutral-800);
+  border: 1px solid var(--clr-incorrect);
+  color: var(--clr-neutral-000);
+  padding: 0.75rem 1rem;
+  font-size: var(--fs-normal);
+  text-align: center;
+  z-index: 6;
 }
 
 /* MEDIA QUERIES ------------------------------------------------------ */

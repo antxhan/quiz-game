@@ -1,3 +1,4 @@
+import ToasterErrorMessage from "../../../components/ToasterErrorMessage";
 import { api } from "../../../utils/api";
 import { db } from "../../../utils/db";
 import NumberInput from "./NumberInput";
@@ -84,6 +85,7 @@ export function handleCancel() {
   const gameModal = document.querySelector(".game-modal");
   const cancelButton = gameModal.querySelector("button[type='reset']");
   cancelButton.addEventListener("click", () => {
+    console.log("click cancel");
     gameModal.close();
   });
 }
@@ -100,8 +102,21 @@ export function handleSubmit() {
       const category = form.category.value;
       const difficulty = form.difficulty.value;
       const quiz = await api.quiz({ amount, category, difficulty });
-      db.setQuiz(quiz);
-      window.location.href = "/quiz";
+      if (quiz.response_code !== 0) {
+        gameModal.close();
+        const toasterError = document.createElement("div");
+        toasterError.className = "toaster-error-message";
+        toasterError.textContent = `Something went wrong... Error: ${quiz.response_code}`;
+        document.body.appendChild(toasterError);
+        setTimeout(() => {
+          const errorMessage = document.querySelector(".toaster-error-message");
+          errorMessage.remove();
+        }, 3000);
+        return;
+      } else {
+        db.setQuiz(quiz);
+        window.location.href = "/quiz";
+      }
     } else {
       // invalid form
     }

@@ -97,9 +97,9 @@ export async function Page() {
   return {
     html: html(categories.trivia_categories),
     addEventListeners: () => {
+      handleCancel();
       handleCategoryClick();
       handleFormChange();
-      handleCancel();
       handleSubmit();
     },
   };
