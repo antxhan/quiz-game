@@ -1,8 +1,8 @@
-export function Score(amount, correct) {
+export function Score(correct) {
   return `
       <div class="score">
       <span class="score__label">Score</span>
-      <span class="score__amount">${correct} / ${amount}</span>
+      <span class="score__amount">${correct}</span>
       </div>
       `;
 }

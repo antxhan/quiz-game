@@ -25,8 +25,7 @@ function handleAnswer(button) {
 
     // increment score in view
     const score = document.querySelector(".score");
-    score.querySelector(".score__amount").textContent =
-      db.getQuiz().score + " / " + quiz.results.length;
+    score.querySelector(".score__amount").textContent = db.getQuiz().score;
 
     // push to correct answers in db
     db.setAnswers({
