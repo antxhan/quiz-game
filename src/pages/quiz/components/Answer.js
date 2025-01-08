@@ -1,4 +1,5 @@
 import { db } from "../../../utils/db";
+import { decodeHtmlEntities } from "../../../utils/utils";
 
 export function Answer(index, answer) {
   return `
@@ -15,7 +16,9 @@ function handleAnswer(button) {
   const questions = quiz.results;
   const questionIndex = quiz.current_question;
   const question = questions[questionIndex];
-  const correctAnswer = question.correct_answer;
+  const correctAnswer = decodeHtmlEntities(question.correct_answer);
+  console.log(answer);
+  console.log(correctAnswer);
   if (answer === correctAnswer) {
     // increment score in db
     db.incrementScore();
