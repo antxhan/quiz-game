@@ -77,6 +77,9 @@ function handleCategoryClick() {
       const id = e.currentTarget.dataset.categoryId;
       console.log(id);
 
+      // get category max questions
+      await api.categoryMaxQuestions(id);
+
       // open game modal
       const gameModal = document.querySelector(".game-modal");
       gameModal.showModal();
