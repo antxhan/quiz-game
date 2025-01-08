@@ -102,15 +102,7 @@ export function handleSubmit() {
       const difficulty = form.difficulty.value;
       const quiz = await api.quiz({ amount, category, difficulty });
       if (quiz.response_code !== 0) {
-        gameModal.close();
-        const toasterError = document.createElement("div");
-        toasterError.className = "toaster-error-message";
-        toasterError.textContent = `Something went wrong... Error: ${quiz.response_code}`;
-        document.body.appendChild(toasterError);
-        setTimeout(() => {
-          const errorMessage = document.querySelector(".toaster-error-message");
-          errorMessage.remove();
-        }, 3000);
+        handleResponseError(quiz.response_code);
         return;
       } else {
         db.setQuiz(quiz);
@@ -120,4 +112,28 @@ export function handleSubmit() {
       // invalid form
     }
   });
+}
+
+function handleResponseError(errorCode) {
+  const gameModal = document.querySelector(".game-modal");
+  gameModal.close();
+  const toasterError = document.createElement("div");
+  toasterError.className = "toaster-error-message";
+  toasterError.textContent = createToasterErrorMessage(errorCode);
+  document.body.appendChild(toasterError);
+  setTimeout(() => {
+    const errorMessage = document.querySelector(".toaster-error-message");
+    errorMessage.remove();
+  }, 3000);
+}
+
+function createToasterErrorMessage(errorCode) {
+  switch (errorCode) {
+    case 1:
+      return "Couldn’t find questions, try lowering amount";
+    case 5:
+      return "You’re going too fast! Wait a sec.";
+    default:
+      return `Something went wrong... Error: ${errorCode}`;
+  }
 }
