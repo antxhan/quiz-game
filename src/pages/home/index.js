@@ -36,14 +36,20 @@ function html(categories) {
 async function populateSelect(select, options, selectedId = null) {
   const selectOptions = options
     .map((option) => {
+      let name = option.name;
+      if (select.name === "category") {
+        if (name.includes(":")) {
+          name = name.split(":")[1];
+        }
+      }
       if (selectedId === option.id) {
         return Option({
           value: option.id,
-          label: option.name,
+          label: name,
           selected: true,
         });
       } else {
-        return Option({ value: option.id, label: option.name });
+        return Option({ value: option.id, label: name });
       }
     })
     .join("");
