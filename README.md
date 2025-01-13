@@ -16,7 +16,7 @@ A responsive quiz website powered by the [Open Trivia Database (OpenTDB)](https:
 
 ## Usage
 
-1. Choose a **Category** then optioanlly select **Difficulty**, and **Number of Questions**.
+1. Choose a **Category** then optionally select **Difficulty**, and **Number of Questions**.
 2. The form guides you if the inputs are invalid.
 3. Start the quiz and have fun!
 
