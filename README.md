@@ -30,5 +30,5 @@ A responsive quiz website powered by the [Open Trivia Database (OpenTDB)](https:
 
 ## Technologies
 
-- **Frontend**: HTML, CSS, Javascript
+- **Frontend**: HTML, CSS, Javascript, Webpack
 - **API**: OpenTDB
