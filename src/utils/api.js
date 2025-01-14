@@ -21,6 +21,9 @@ export const api = {
     }
   },
   async categoryMaxQuestions(categoryId) {
+    if (categoryId === "") {
+      return 50;
+    }
     const endpoint = `/api_count.php?category=${categoryId}`;
     const cachedCategories = db.getCategories();
     if (cachedCategories) {
